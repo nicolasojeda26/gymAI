@@ -386,7 +386,7 @@ function HomeContent() {
             Sitio de SpotterApp
           </button>
         </div>
-        <p className="mt-3 text-center text-[10px] tracking-wide text-graphite-600">Web hecha por {BRAND.company}</p>
+        <p className="mt-3 text-center text-[11px] tracking-wide text-graphite-400">Web hecha por {BRAND.company}</p>
       </footer>
     </main>
   );

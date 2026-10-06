@@ -761,7 +761,7 @@ export function PublicLandingPage({
           </div>
         </div>
         {seedMsg && <p className="pb-6 text-center text-sm text-volt-300">{seedMsg}</p>}
-        <p className="pb-5 text-center text-[10px] tracking-wide text-graphite-600">Web hecha por {BRAND.company}</p>
+        <p className="pb-5 text-center text-[11px] tracking-wide text-graphite-400">Web hecha por {BRAND.company}</p>
       </footer>
 
       {isSubscriptionOpen && (
