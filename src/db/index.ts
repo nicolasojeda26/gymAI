@@ -55,7 +55,20 @@ function getClient(): Promise<Client> {
       const url = !isLocalFile && connection.url.startsWith("libsql://")
         ? connection.url.replace(/^libsql:\/\//, "https://")
         : connection.url;
-      realClient = mod.createClient({ ...connection, url });
+      realClient = mod.createClient({
+        ...connection,
+        url,
+        // FIX CRÍTICO: Next.js intercepta fetch() y guarda las respuestas en su "Data Cache".
+        // Las consultas a Turso viajan por fetch, así que las rutas GET devolvían datos
+        // viejos para siempre (socios, facturas, caja, gimnasios recién creados).
+        // Con cache: "no-store" cada consulta va realmente a la base.
+        ...(isLocalFile
+          ? {}
+          : {
+              fetch: (input: any, init?: any) =>
+                fetch(input, { ...(init || {}), cache: "no-store" } as RequestInit),
+            }),
+      });
       return realClient;
     })().catch((err) => {
       clientPromise = null;
